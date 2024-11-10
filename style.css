@@ -1,0 +1,76 @@
+/* Basic reset for consistent styling across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Center everything and set background */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #2c3e50;
+}
+
+/* Style for button container */
+#buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* General button styling */
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Disabled button style */
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Style for results and score */
+#results {
+    text-align: center;
+    font-size: 1.2em;
+    color: #34495e;
+}
+
+#roundResult {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#score {
+    margin-bottom: 10px;
+}
+
+#winner {
+    font-size: 1.5em;
+    color: #e74c3c;
+    font-weight: bold;
+}
