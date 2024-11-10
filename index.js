@@ -1,50 +1,70 @@
-let playerScore = 0; 
-let computerScore = 0; 
-let roundWinner = '';
+// Initialize scores
+let playerScore = 0;
+let computerScore = 0;
 
-function playRound(playerChoice){
-
-    const computerChoice = getComputerChoice();
-    let result = ''; 
-
-  if(playerChoice === computerChoice){
-    result = "It's a tie!"; 
-  } else if (
-    (playerChoice === 'ROCK' && computerChoice === 'SCISSORS') ||
-    (playerChoice === 'PAPER' && computerChoice === 'ROCK') ||
-    (playerChoice === 'SCISSORS' && computerChoice === 'PAPER') 
-  ){
-    playerScore++
-    result = `You win! ${playerSelection} beats ${computerSelection}`; 
-  } else {
-    computerChoice++
-    result = `You lose! ${computerSelection} beats ${playerSelection}`;
-  }
-  // add an update score section
+// Function to get computer choice
+function getComputerChoice() {
+    const choices = ["rock", "paper", "scissors"];
+    return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function getComputerChoice(){
-  let randomNumber = Math.floor((Math.random() * 3) +1) 
-  switch(randomNumber){
-    case 1: 
-      return 'ROCK';
-    case 2: 
-      return 'PAPER';
-    case 3: 
-      return 'SCISSORS'; 
-  }
+// Function to play a single round
+function playRound(playerSelection) {
+    const computerSelection = getComputerChoice();
+    let result = '';
+
+    if (playerSelection === computerSelection) {
+        result = "It's a tie!";
+    } else if (
+        (playerSelection === "rock" && computerSelection === "scissors") ||
+        (playerSelection === "scissors" && computerSelection === "paper") ||
+        (playerSelection === "paper" && computerSelection === "rock")
+    ) {
+        playerScore++;
+        result = `You win! ${playerSelection} beats ${computerSelection}`;
+    } else {
+        computerScore++;
+        result = `You lose! ${computerSelection} beats ${playerSelection}`;
+    }
+
+    // Update the round result
+    document.getElementById("roundResult").textContent = result;
+    updateScore();
 }
 
-function updateScore(){
-  document.getElementById("score").textConent = `Player: ${playerScore} - Computer: ${computerScore}`;
+// Function to update the score display
+function updateScore() {
+    document.getElementById("score").textContent = `Player: ${playerScore} - Computer: ${computerScore}`;
+
+    // Check if there's a winner
+    if (playerScore === 5) {
+        document.getElementById("winner").textContent = "You won the game!";
+        disableButtons();
+    } else if (computerScore === 5) {
+        document.getElementById("winner").textContent = "The computer won the game!";
+        disableButtons();
+    }
 }
 
-function isGameOver(){
-  return playerScore === 5 || playerScore === 5
+// Function to disable buttons once game is won
+function disableButtons() {
+    document.getElementById("rock").disabled = true;
+    document.getElementById("paper").disabled = true;
+    document.getElementById("scissors").disabled = true;
 }
 
+function restartGame(){
+  playerScore = 0; 
+  computerScore = 0; 
+  document.getElementById("score").textContent = "Player: 0 - Computer: 0";
+  document.getElementById("roundResult").textContent = "";
+  document.getElementById("rock").disabled = false;
+  document.getElementById("paper").disabled = false;
+  document.getElementById("scissors").disabled = false;
+}
 
-
-const btnRock = document.querySelector('#rockBtn'); 
-const btnPaper = document.querySelector('#paperBtn')
-const btnScissors = document.querySelector('#scissorsBtn')
+// Event listeners for the buttons
+document.getElementById("rock").addEventListener("click", () => playRound("rock"));
+document.getElementById("paper").addEventListener("click", () => playRound("paper"));
+document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
+document.getElementById("restart").addEventListener("click", restartGame); 
